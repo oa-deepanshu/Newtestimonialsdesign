@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mercari Testimonials - Slider</title>
+        <link rel="stylesheet" href="bootstrap.css">
+        <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        overflow-x: hidden;
+      }
+      .testimonials-container {
+        max-width: 91%;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+      }
+      .active-details {
+        position: absolute;
+        /* width: 28%; */
+        width: 25%;
+        max-width: 492px;
+        padding-right: 20px;
+        transition: opacity 0.3s ease;
+        /* left: 45%; */
+        left: 49%;
+        bottom: 67%;
+        z-index: 9999999;
+      }
+      .active-details h2 {
+        font-size: 1em;
+        line-height: 0.8vw;
+        margin-bottom: 5px;
+      }
+      .active-details h3 {
+        font-size: 0.9em;
+        line-height: 1.25vw;
+        color: #222222;
+        padding: 5px 0;
+      }
+      .active-details p {
+        font-size: 0.87em;
+        line-height: 19px;
+        color: #222222;
+        margin-bottom: 10px;
+      }
+      .read-more-btn {
+        display: inline-flex;
+        align-items: center;
+        background-color: #ff0033;
+        color: white;
+        padding: 6px 11px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-size: 0.75em;
+        font-weight: 700;
+      }
+      .read-more-btn svg {
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+      }
+      .image-row {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 15px;
+        align-items: flex-end;
+        margin-top: 350px;
+        height: 550px;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+      }
+      .testimonial-item {
+        width: 25%; /* Default: 4 items = 100% */
+        height: 292px;
+        border-radius: 18px;
+        cursor: pointer;
+        position: relative;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: height 1s cubic-bezier(0.25, 0.8, 0.25, 1),
+          right 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 1;
+        flex-shrink: 0;
+      }
+      .testimonial-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 16px;
+      }
+      .testimonial-item .hover-info {
+        position: absolute;
+        bottom: -60px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        border-radius: 0 0 8px 8px;
+      }
+      .testimonial-item:not(.active):hover .hover-info {
+        opacity: 1;
+      }
+      .hover-info h4 {
+        font-size: 14px;
+        margin: 0 0 2px 0;
+      }
+      .hover-info p {
+        font-size: 12px;
+        margin: 0;
+        opacity: 0.8;
+      }
+      .testimonial-item.active {
+        height: 540px;
+        z-index: 10;
+      }
+      @media (max-width: 992px) {
+        .active-details {
+          left: 32%;
+          /* bottom: 60%; */
+          bottom: 62%;
+          width: 35%;
+        }
+        .active-details h2 {
+          font-size: 2vw;
+          line-height: 1.5vw;
+        }
+        .active-details h3 {
+          font-size: 1.5vw;
+          line-height: 2vw;
+        }
+        .active-details p {
+          font-size: 1.5vw;
+          line-height: 2vw;
+        }
+        /* .read-more-btn {
+          font-size: 1.5vw;
+          padding: 8px 20px;
+        } */
+            .read-more-btn {
+        font-size: 1.36vw;
+        padding: 7px 15px;
+    }
+        .testimonial-item {
+          width: 33.33%;
+          height: 270px;
+        }
+        .testimonial-item.active {
+          /* height: 400px; */
+          height: 450px;
+        }
+        .image-row {
+          margin-top: 250px;
+          height: 450px;
+        }
+      }
+
+      .hover-info {
+    display: none;
+}
+
+      @media (max-width: 768px) {
+        .testimonials-container {
+          padding: 0 10px;
+        }
+        .active-details {
+        position: relative;
+        top: auto;
+        /* left: auto; */
+        bottom: auto;
+        width: 50%;
+        max-width: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+        left: -20px;
+        bottom: -285px;
+    }
+    .active-details h2 {
+        font-size: 17px;
+        line-height: 14px;
+    }
+
+    .active-details h3 {
+        font-size: 16px;
+        line-height: 29px;
+    }
+
+    .active-details p {
+        font-size: 17px;
+        line-height: 24px;
+    }
+
+    .read-more-btn {
+        font-size: 13px;
+        padding: 10px 17px;
+    }
+
+
+
+
+        /* .active-details {
+          position: relative;
+          top: auto;
+          left: auto;
+          bottom: auto;
+          width: 100%;
+          max-width: 100%;
+          padding: 20px;
+          margin-bottom: 20px;
+        } */
+        /* .active-details h2 {
+          font-size: 5vw;
+          line-height: 6vw;
+        }
+        .active-details h3 {
+          font-size: 4vw;
+          line-height: 5vw;
+        }
+        .active-details p {
+          font-size: 4vw;
+          line-height: 5vw;
+        }
+        .read-more-btn {
+          font-size: 3.5vw;
+          padding: 6px 15px;
+        } */
+        .image-row {
+        margin-top: 0;
+        overflow-x: hidden;
+        padding-bottom: 20px;
+        height: 600px;
+    }
+    .testimonial-item {
+        width: 48% !important;
+        height: 318px;
+    }
+        /* .image-row {
+          margin-top: 0;
+          overflow-x: hidden;
+          padding-bottom: 20px;
+          height: 340px;
+        }
+        .testimonial-item {
+          width: 50%; 
+          height: 140px;
+        } */
+        /* .testimonial-item.active {
+          height: 280px;
+        } */
+        .testimonial-item.active {
+        height: 575px;
+    }
+
+      }
+
+      @media (max-width:562px){
+        .active-details h2 {
+        font-size: 16px;
+        line-height: 14px;
+    }
+
+       .active-details h3 {
+        font-size: 14px;
+        line-height: 17px;
+        text-transform: capitalize;
+    }
+
+
+    .active-details p {
+        font-size: 14px;
+        line-height: 21px;
+    }
+
+    .read-more-btn {
+        font-size: 13px;
+        padding: 7px 10px;
+    }
+
+.testimonials-container {
+    max-width: 97%;
+  }
+  .active-details {
+       
+        bottom: -250px;
+    }
+
+      }
+
+      @media (max-width:481px){
+        .image-row {
+        height: 515px;
+    }
+        .testimonial-item.active {
+        height: 470px;
+    }
+
+       .testimonial-item {
+        width: 50% !important;
+        height: 215px;
+    }
+
+
+        .active-details {
+        bottom: -250px;
+    }
+
+
+
+    .active-details p {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .active-details h3 {
+               font-size: 12px;
+        line-height: 15px;
+    }
+
+    .active-details h2 {
+              font-size: 14px;
+        line-height: 21px;
+    }
+
+    .read-more-btn {
+        font-size: 13px;
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .active-details {
+        bottom: -230px;
+    }
+
+
+
+      }
+      @media (max-width:461px){
+        .active-details {
+        bottom: -250px;
+    }
+      }
+
+      @media (max-width:400px){
+      /* .active-details {
+        bottom: -305px;
+    } */
+    .read-more-btn {
+        font-size: 13px;
+        padding: 4px 10px;
+        font-size: 9.3px;
+    }
+    .active-details {
+        bottom: -260px;
+    }
+    .testimonial-item.active {
+        height: 440px;
+    }
+
+    .testimonial-item {
+        width: 50% !important;
+        height: 201px;
+    }
+
+
+
+    .active-details {
+        bottom: -290px;
+    }
+
+
+}
+
+@media (max-width:330px) {
+    
+
+.active-details h2 {
+        font-size: 12.5px;
+    }
+
+
+    .active-details h3 {
+        font-size: 11px;
+        line-height: 15px;
+    }
+
+    .active-details p {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+
+    .read-more-btn {
+        font-size: 13px;
+        padding: 3px 10px;
+        font-size: 9px;
+    }
+
+    .testimonial-item.active {
+        height: 420px;
+    }
+
+
+    .testimonial-item {
+        width: 50% !important;
+        height: 180px;
+    }
+        .testimonials-container {
+        max-width: 100%;
+    }
+}
+        </style>
+    </head>
+    <body>
+        <div class="testimonials-container">
+            <div class="active-details">
+                <h2>Priyanka Hebsur</h2>
+                <h3>QA Engineer</h3>
+                <p>
+                    Working at Mercari has been a fulfilling experience. I've had the
+          opportunity to work on multiple projects, deliver impactful results
+                </p>
+                <a href="#" class="read-more-btn">
+                    READ MORE
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+                        <path style="fill: #fff; stroke: #fff; stroke-width: 0.9" d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z" data-name="Right"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="image-row" id="image-row">
+                <div
+                    class="testimonial-item active"
+                    data-name="Priyanka Hebsur"
+                    data-title="QA Engineer"
+                    data-quote="Working at Mercari has been a fulfilling experience. I've had the opportunity to work on multiple projects, deliver impactful results"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/01/Testimonials.jpg"
+                    data-index="0"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/01/Testimonials.jpg" alt="Priyanka Hebsur">
+                    <div class="hover-info">
+                        <h4>Priyanka Hebsur</h4>
+                        <p>QA Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Shishir"
+                    data-title=" Lead Software Engineer"
+                    data-quote="What sets Mercari apart is its culture of continuous learning and
+                    improvement. Every challenge is an opportunity to innovate and every
+                    success"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/Shishir.jpg"
+                    data-index="1"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/Shishir.jpg" alt="Zeph">
+                    <div class="hover-info">
+                        <h4>Shishir</h4>
+                        <p> Lead Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Smriti Singhal"
+                    data-title="HR"
+                    data-quote="Mercari’s culture is built on trust, collaboration, and innovation. As an HR
+                professional, it’s inspiring to see employees thrive in an environment"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/Smriti.jpg"
+                    data-index="2"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/Smriti.jpg" alt="Zeph">
+                    <div class="hover-info">
+                        <h4>Smriti Singhal</h4>
+                        <p>HR</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Minal"
+                    data-title="Software Engineer"
+                    data-quote="Mercari has played a pivotal role in my growth, shaping my journey from a
+                    software engineering intern to a full-time engineer"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/minal.jpg"
+                    data-index="3"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/minal.jpg" alt="Gokul">
+                    <div class="hover-info">
+                        <h4>Minal</h4>
+                        <p>Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Nikita Punia"
+                    data-title="Software Engineer"
+                    data-quote="Joining Mercari India as an intern and advancing to a full-time backend software engineer has been incredibly rewarding. From the start"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/01/Testimonials2.jpg"
+                    data-index="4"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/01/Testimonials2.jpg" alt="Nikita Punia">
+                    <div class="hover-info">
+                        <h4>Nikita Punia</h4>
+                        <p>Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Vandana Kumari"
+                    data-title="Software Engineer"
+                    data-quote="Mercari has been a transformative journey for me as a software engineer
+          Intern to full time employee. From the first day"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/01/Testimonials5.jpg"
+                    data-index="5"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/01/Testimonials5.jpg" alt="Vandana Kumari">
+                    <div class="hover-info">
+                        <h4>Vandana Kumari</h4>
+                        <p>Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Archita"
+                    data-title="Lead software engineer"
+                    data-quote="Working at Mercari has been an incredibly rewarding experience. From day
+          one, I’ve had the opportunity to work on impactful projects"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/01/Testimonials.jpg"
+                    data-index="6"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/01/Testimonials.jpg" alt="John Doe">
+                    <div class="hover-info">
+                        <h4>Archita</h4>
+                        <p>Lead software engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Zeph"
+                    data-title="Software Engineer"
+                    data-quote="Working at Mercari means being surrounded by some of the brightest minds in
+          tech. The freedom to experiment, the focus on technology"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/Zeph.jpg"
+                    data-index="7"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/Zeph.jpg" alt="Jane Smith">
+                    <div class="hover-info">
+                        <h4>Zeph</h4>
+                        <p>Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Gokul"
+                    data-title="Senior Software Engineer"
+                    data-quote="From tackling real-world challenges to optimizing large-scale systems,
+          Mercari has given me the platform to create and innovate"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/Gokul.jpg"
+                    data-index="8"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/Gokul.jpg" alt="Gokul">
+                    <div class="hover-info">
+                        <h4>Gokul</h4>
+                        <p>Senior Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Nikita Punia"
+                    data-title="Software Engineer"
+                    data-quote="Joining Mercari India as an intern and advancing to a full-time backend
+          software engineer has been incredibly rewarding. From
+          the start"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/01/Testimonials2.jpg"
+                    data-index="9"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/01/Testimonials2.jpg" alt="Nikita Punia">
+                    <div class="hover-info">
+                        <h4>Nikita Punia</h4>
+                        <p>Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Sharayu Yadav"
+                    data-title="Software Engineer"
+                    data-quote="I am thrilled to share my experience after one year as a Software Engineer
+          at Mercari. My journey here has been nothing short of
+          transformative"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/sharayu-yadav.jpg"
+                    data-index="10"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/sharayu-yadav.jpg" alt="Sharayu Yadav">
+                    <div class="hover-info">
+                        <h4>Sharayu Yadav</h4>
+                        <p>Software Engineer</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Sreenath"
+                    data-title="Corporate Admin"
+                    data-quote="
+          Mercari isn't just a workplace—it’s a well-orchestrated environment where
+          every team member is supported"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/sreenath.jpg"
+                    data-index="11"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/sreenath.jpg" alt="Sreenath">
+                    <div class="hover-info">
+                        <h4>Sreenath</h4>
+                        <p>Corporate Admin</p>
+                    </div>
+                </div>
+                <div
+                    class="testimonial-item"
+                    data-name="Kishore"
+                    data-title="Associate Corporate Controller"
+                    data-quote="At Mercari, I’ve had the opportunity to work on dynamic financial
+          strategies that drive real impact"
+                    data-image="https://storage.googleapis.com/mercari-images/2025/02/kishore.jpg"
+                    data-index="12"
+                >
+                    <img src="https://storage.googleapis.com/mercari-images/2025/02/kishore.jpg" alt="Kishore">
+                    <div class="hover-info">
+                        <h4>Kishore</h4>
+                        <p>Associate Corporate Controller</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const imageRow = document.getElementById("image-row");
+        const items = Array.from(
+          document.querySelectorAll(".testimonial-item")
+        );
+        const activeName = document.querySelector(".active-details h2");
+        const activeTitle = document.querySelector(".active-details h3");
+        const activeQuote = document.querySelector(".active-details p");
+        let isAnimating = false;
+
+        const totalItems = items.length;
+        const gap = 15;
+
+        // Function to determine visible items based on screen size
+        function getVisibleItems() {
+          if (window.innerWidth <= 768) return 2; // Mobile: 1 main + 1 small
+          if (window.innerWidth <= 992) return 3; // iPad: 3 items
+          return 4; // Desktop: 4 items
+        }
+
+        function updateActiveDetails(item) {
+          const details = document.querySelector(".active-details");
+          details.style.opacity = "0";
+          setTimeout(() => {
+            activeName.textContent = item.dataset.name;
+            activeTitle.textContent = item.dataset.title;
+            activeQuote.textContent = item.dataset.quote;
+            details.style.opacity = "1";
+          }, 250);
+        }
+
+        function getItemPosition(index, visibleItems, itemWidth) {
+          return index * (itemWidth + gap);
+        }
+
+        // Update positions and sizes dynamically
+        function updatePositions() {
+          const visibleItems = getVisibleItems();
+          const itemWidth = imageRow.offsetWidth / visibleItems;
+
+          items.forEach((item, i) => {
+            item.style.position = "absolute";
+            const wrappedIndex = (i - currentOffset + totalItems) % totalItems;
+            item.style.right = `${getItemPosition(
+              wrappedIndex,
+              visibleItems,
+              itemWidth
+            )}px`;
+            item.style.width = `${100 / visibleItems}%`;
+          });
+        }
+
+        let currentOffset = 0;
+
+        // Initial positioning
+        updatePositions();
+
+        items.forEach((item) => {
+          item.addEventListener("click", function () {
+            if (this.classList.contains("active") || isAnimating) return;
+
+            isAnimating = true;
+            const currentActive = document.querySelector(
+              ".testimonial-item.active"
+            );
+            const clickedIndex = parseInt(this.dataset.index);
+
+            updateActiveDetails(this);
+
+            const visibleItems = getVisibleItems();
+            const itemWidth = imageRow.offsetWidth / visibleItems;
+
+            const currentRightmostIndex = currentOffset;
+            let shift = clickedIndex - currentRightmostIndex;
+            if (shift < 0) shift += totalItems;
+
+            currentOffset = (currentOffset + shift) % totalItems;
+
+            items.forEach((item, i) => {
+              const wrappedIndex =
+                (i - currentOffset + totalItems) % totalItems;
+              const newPosition = getItemPosition(
+                wrappedIndex,
+                visibleItems,
+                itemWidth
+              );
+
+              item.style.width = `${100 / visibleItems}%`;
+
+              if (parseInt(item.dataset.index) === clickedIndex) {
+                item.style.transition =
+                  "right 1s cubic-bezier(0.25, 0.8, 0.25, 1), height 1s cubic-bezier(0.25, 0.8, 0.25, 1)";
+                item.classList.add("active");
+                item.style.right = "0px";
+              } else {
+                item.style.transition =
+                  "right 1s cubic-bezier(0.25, 0.8, 0.25, 1)";
+                item.style.right = `${newPosition}px`;
+              }
+            });
+
+            if (currentActive) {
+              currentActive.style.transition =
+                "right 1s cubic-bezier(0.25, 0.8, 0.25, 1), height 1s cubic-bezier(0.25, 0.8, 0.25, 1)";
+              currentActive.classList.remove("active");
+            }
+
+            setTimeout(() => {
+              items.forEach((item, i) => {
+                const wrappedIndex =
+                  (i - currentOffset + totalItems) % totalItems;
+                item.style.right = `${getItemPosition(
+                  wrappedIndex,
+                  visibleItems,
+                  itemWidth
+                )}px`;
+              });
+              isAnimating = false;
+            }, 1000);
+          });
+        });
+
+        // Real-time resize handling with debounce
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            updatePositions();
+          }, 100); // Debounce to prevent excessive updates
+        });
+
+        if ("ontouchstart" in window) {
+          let isScrolling = false;
+          let startX, startY;
+
+          imageRow.addEventListener(
+            "touchstart",
+            function (e) {
+              isScrolling = false;
+              startX = e.touches[0].clientX;
+              startY = e.touches[0].clientY;
+            },
+            { passive: true }
+          );
+
+          imageRow.addEventListener(
+            "touchmove",
+            function (e) {
+              if (!startX || !startY) return;
+              const diffX = Math.abs(e.touches[0].clientX - startX);
+              const diffY = Math.abs(e.touches[0].clientY - startY);
+              if (diffX > 10 || diffY > 10) isScrolling = true;
+            },
+            { passive: true }
+          );
+
+          imageRow.addEventListener(
+            "touchend",
+            function (e) {
+              if (!isScrolling) {
+                const touch = e.changedTouches[0];
+                const element = document.elementFromPoint(
+                  touch.clientX,
+                  touch.clientY
+                );
+                const item = element.closest(".testimonial-item");
+                if (item && !item.classList.contains("active")) item.click();
+              }
+              startX = null;
+              startY = null;
+            },
+            { passive: true }
+          );
+        }
+      });
+        </script>
+    </body>
+</html>
